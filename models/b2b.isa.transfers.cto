@@ -1,19 +1,61 @@
-/**
- * Write your model definitions here
- */
-
 namespace b2b.isa.transfers
 
-participant User identified by email {
-  o String email
+participant Regulator identified by name {
+  o String name
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  o String value
+participant Provider identified by name {
+  o String name
+  o String address
 }
 
-transaction ChangeAssetValue {
-  o String newValue
-  --> Asset relatedAsset
+asset ISA identified by id {
+  o String id
+  o String sortCode regex=/[0-9]{6}/
+  o String accountNumber regex=/[0-9]{7,9}/
+  o String type regex=/Cash|Stock&Shares/
+  o Integer fiscalYear
+  o Double balance
+  --> Provider provider
+}
+
+asset TransferRequest identified by id {
+  o String id
+  o String sortCode regex=/[0-9]{6}/
+  o String accountNumber regex=/[0-9]{7,9}/
+  o String type default='Cash' regex=/Cash|Stock&Shares/
+  o Integer fiscalYear
+  o Double amountRequested
+  o Double amountSent default=0.0
+  o Double amountReceived default=0.0
+  o TransferRequestState state default='CREATED'
+  o String comment default='Request created'
+  --> ISA isa optional // Will be linked by the recipient provider.
+  --> Provider submitter
+  --> Provider recipient
+}
+
+enum TransferRequestState {
+  o CREATED
+  o ACCEPTED
+  o REJECTED
+  o MONEY_SENT
+  o MONEY_DISTRIBUTED
+}
+
+transaction ValidateRequest {
+  --> TransferRequest transferRequest
+}
+
+transaction SendMoney {
+  o Double amount
+  o String comment
+  --> TransferRequest transferRequest
+}
+
+transaction DistributeMoney {
+  o Double amount
+  o String comment
+  --> TransferRequest transferRequest
+  --> ISA isa
 }
