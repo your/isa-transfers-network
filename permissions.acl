@@ -1,0 +1,90 @@
+rule ProviderReadProvider {
+  description: "Grant an ISA provider READ access to Provider"
+  participant: "b2b.isa.transfers.Provider"
+  operation: READ
+  resource: "b2b.isa.transfers.Provider"
+  action: ALLOW
+}
+
+rule ProviderAccessISA {
+  description: "Grant an ISA provider ALL access to their own ISA"
+  participant(m): "b2b.isa.transfers.Provider"
+  operation: ALL
+  resource(v): "b2b.isa.transfers.ISA"
+  condition: (v.provider.getIdentifier() == m.getIdentifier())
+  action: ALLOW
+}
+
+rule SubmitterProviderAccessTransferRequest {
+  description: "Grant an ISA provider conditional ALL access to TransferRequest"
+  participant(m): "b2b.isa.transfers.Provider"
+  operation: ALL
+  resource(v): "b2b.isa.transfers.TransferRequest"
+  condition: (v.submitter.getIdentifier() == m.getIdentifier())
+  action: ALLOW
+}
+
+rule RecipientProviderReadUpdateTransferRequest {
+  description: "Grant an ISA provider conditional READ, UPDATE access to TransferRequest"
+  participant(m): "b2b.isa.transfers.Provider"
+  operation: READ, UPDATE
+  resource(v): "b2b.isa.transfers.TransferRequest"
+  condition: (v.recipient.getIdentifier() == m.getIdentifier())
+  action: ALLOW
+}
+
+rule ProviderValidateRequest {
+  description: "Grant an ISA provider CREATE access to ValidateRequest transaction"
+  participant: "b2b.isa.transfers.Provider"
+  operation: CREATE
+  resource: "b2b.isa.transfers.ValidateRequest"
+  action: ALLOW
+}
+
+rule ProviderSendMoney {
+  description: "Grant an ISA provider CREATE access to SendMoney transaction"
+  participant: "b2b.isa.transfers.Provider"
+  operation: CREATE
+  resource: "b2b.isa.transfers.SendMoney"
+  action: ALLOW
+}
+
+rule DistributeMoney {
+  description: "Grant an ISA provider CREATE access to DistributeMoney transaction"
+  participant: "b2b.isa.transfers.Provider"
+  operation: CREATE
+  resource: "b2b.isa.transfers.DistributeMoney"
+  action: ALLOW
+}
+
+rule RegulatorAllAccess {
+  description:  "Grant Regulators full access to user resources"
+  participant: "b2b.isa.transfers.Regulator"
+  operation: ALL
+  resource: "**"
+  action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
