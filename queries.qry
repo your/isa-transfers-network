@@ -1,0 +1,7 @@
+query findISABySortCodeAndAccountNumber {
+  description: "Find the ISA with the given provider and sort code"
+  statement:
+      SELECT b2b.isa.transfers.ISA
+          WHERE (sortCode == _$sortCode AND accountNumber == _$accountNumber)
+          LIMIT 1
+}
