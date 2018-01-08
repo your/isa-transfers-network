@@ -1,0 +1,22 @@
+{
+  "name": "isa-transfers-network",
+  "version": "0.0.1",
+  "description": "ISA Transfer Authority Network",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "author": "Giuseppe Lobraico",
+  "email": "g.lobraico@gmail.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "latest",
+    "composer-client": "latest",
+    "composer-common": "latest",
+    "composer-connector-embedded": "latest",
+    "chai": "latest",
+    "eslint": "latest",
+    "istanbul": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}
