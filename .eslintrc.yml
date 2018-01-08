@@ -5,7 +5,7 @@ extends: 'eslint:recommended'
 parserOptions:
     sourceType:
         - script
-globals: 
+globals:
     getFactory: true
     getSerializer: true
     getAssetRegistry: true
