@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "ISA Transfer Authority Network",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "./node_modules/mocha/bin/mocha --recursive"
   },
   "author": "Giuseppe Lobraico",
   "email": "g.lobraico@gmail.com",
