@@ -116,7 +116,7 @@ describe('#' + namespace, () => {
 
             transferRequest = factory.newResource(namespace, mainAssetType, 'TransferRequest_1');
             transferRequest.sortCode = '000000';
-            transferRequest.accountNumber = '1111111';
+            transferRequest.accountReference = 'REF0123456789';
             transferRequest.fiscalYear = 2017;
             transferRequest.amountRequested = 5000;
             transferRequest.state = 'CREATED';
@@ -128,7 +128,7 @@ describe('#' + namespace, () => {
         });
 
         describe('when there is no ISA account matching the request', () => {
-            it('rejects the requests', () => {
+            it('rejects the request', () => {
                 return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                     assetRegistry = registry;
                     return registry.add(transferRequest);
@@ -151,7 +151,7 @@ describe('#' + namespace, () => {
             beforeEach(() => {
                 isa = factory.newResource(namespace, 'ISA', 'ISA_1');
                 isa.sortCode = transferRequest.sortCode;
-                isa.accountNumber = transferRequest.accountNumber;
+                isa.accountReference = transferRequest.accountReference;
                 isa.type = transferRequest.type;
                 isa.fiscalYear = transferRequest.fiscalYear;
                 isa.balance = transferRequest.amountRequested;
@@ -165,14 +165,14 @@ describe('#' + namespace, () => {
                     isa.fiscalYear = 2016;
                 });
 
-                it('rejects the requests', () => {
+                it('rejects the request', () => {
                     return businessNetworkConnection.getAssetRegistry(namespace + '.ISA').then(registry => {
                         return registry.add(isa);
                     }).then(() => {
                         return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                             assetRegistry = registry;
                             return registry.add(transferRequest);
-                        })
+                        });
                     }).then(() => {
                         return businessNetworkConnection.getParticipantRegistry(namespace + '.Provider');
                     }).then(providerRegistry => {
@@ -193,14 +193,14 @@ describe('#' + namespace, () => {
                     isa.balance = 1;
                 });
 
-                it('rejects the requests', () => {
+                it('rejects the request', () => {
                     return businessNetworkConnection.getAssetRegistry(namespace + '.ISA').then(registry => {
                         return registry.add(isa);
                     }).then(() => {
                         return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                             assetRegistry = registry;
                             return registry.add(transferRequest);
-                        })
+                        });
                     }).then(() => {
                         return businessNetworkConnection.getParticipantRegistry(namespace + '.Provider');
                     }).then(providerRegistry => {
@@ -224,7 +224,7 @@ describe('#' + namespace, () => {
                         return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                             assetRegistry = registry;
                             return registry.add(transferRequest);
-                        })
+                        });
                     }).then(() => {
                         return businessNetworkConnection.getParticipantRegistry(namespace + '.Provider');
                     }).then(providerRegistry => {
@@ -259,7 +259,7 @@ describe('#' + namespace, () => {
 
             transferRequest = factory.newResource(namespace, mainAssetType, 'TransferRequest_1');
             transferRequest.sortCode = '000000';
-            transferRequest.accountNumber = '1111111';
+            transferRequest.accountReference = 'REF0123456789';
             transferRequest.fiscalYear = 2017;
             transferRequest.amountRequested = 5000;
             transferRequest.state = 'ACCEPTED';
@@ -268,7 +268,7 @@ describe('#' + namespace, () => {
 
             isa = factory.newResource(namespace, 'ISA', 'ISA_1');
             isa.sortCode = transferRequest.sortCode;
-            isa.accountNumber = transferRequest.accountNumber;
+            isa.accountReference = transferRequest.accountReference;
             isa.type = transferRequest.type;
             isa.fiscalYear = transferRequest.fiscalYear;
             isa.balance = transferRequest.amountRequested;
@@ -289,7 +289,7 @@ describe('#' + namespace, () => {
                 return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                     assetRegistry = registry;
                     return registry.add(transferRequest);
-                })
+                });
             }).then(() => {
                 return businessNetworkConnection.getParticipantRegistry(namespace + '.Provider');
             }).then(providerRegistry => {
@@ -324,7 +324,7 @@ describe('#' + namespace, () => {
 
             transferRequest = factory.newResource(namespace, mainAssetType, 'TransferRequest_1');
             transferRequest.sortCode = '000000';
-            transferRequest.accountNumber = '1111111';
+            transferRequest.accountReference = 'REF0123456789';
             transferRequest.fiscalYear = 2017;
             transferRequest.amountRequested = 5000;
             transferRequest.amountSent = 4000;
@@ -333,8 +333,8 @@ describe('#' + namespace, () => {
             transferRequest.recipient = factory.newRelationship(namespace, 'Provider', recipient.$identifier);
 
             destinationIsa = factory.newResource(namespace, 'ISA', 'ISA_2');
-            destinationIsa.sortCode = '888888'
-            destinationIsa.accountNumber = '9999999';
+            destinationIsa.sortCode = '888888';
+            destinationIsa.accountReference = '9999999';
             destinationIsa.type = 'Stock&Shares';
             destinationIsa.fiscalYear = 2017;
             destinationIsa.balance = 10000;
@@ -354,7 +354,7 @@ describe('#' + namespace, () => {
                 return businessNetworkConnection.getAssetRegistry(namespace + '.' + mainAssetType).then(registry => {
                     assetRegistry = registry;
                     return registry.add(transferRequest);
-                })
+                });
             }).then(() => {
                 return businessNetworkConnection.getParticipantRegistry(namespace + '.Provider');
             }).then(providerRegistry => {
