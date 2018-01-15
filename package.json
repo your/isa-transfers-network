@@ -2,8 +2,11 @@
   "name": "isa-transfers-network",
   "version": "0.0.1",
   "description": "ISA Transfer Authority Network",
+  "engines": {
+    "node": ">= 8.9.4"
+  },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive"
+    "test": "./node_modules/mocha/bin/mocha --recursive && ./node_modules/eslint/bin/eslint.js ."
   },
   "author": "Giuseppe Lobraico",
   "email": "g.lobraico@gmail.com",
