@@ -1,6 +1,6 @@
 # ISA Transfer Authority Network
 
-This is a transparent B2B network joinable by ISA providers (UK) and, potentially, regulators to quickly run investigations.
+This is a *permissioned* blockchain network joinable by ISA providers (UK) and, potentially, regulators to quickly run investigations.
 
 A meticulous ACL defines what resource are accessible, with what permission(s) and by which peers exaclty.
 
@@ -14,7 +14,7 @@ A meticulous ACL defines what resource are accessible, with what permission(s) a
 
 ## Prerequisites
 
-[Hyperledger Composer](https://hyperledger.github.io/composer/installing/development-tools.html) is up and running.
+[Hyperledger Composer](https://hyperledger.github.io/composer/) is up and running.
 
 Please note that this is a project built on top of [Hyperledger Fabric v1.0](https://www.hyperledger.org/projects/fabric).
 
@@ -37,7 +37,8 @@ Import the generated *banana* file into the [Hyperledger local playground](https
 ## Why this complicated stuff
 
 - I ~~like~~ love Hyperledged Fabric distributed ledger technology
-- Blockchain is not just about mining Bitcoin
+- Blockchain is not just about mining Bitcoin ($$$)
+- Ethereum is permissionless (*open* != *safe*)
 - [ISA transfer procedure looks so 90s](https://www.gov.uk/individual-savings-accounts/transferring-your-isa)
 
 ## Tests
@@ -48,21 +49,21 @@ Written using [mocha](https://github.com/mochajs/mocha), to be refactored asap.
   #b2b.isa.transfers
     validateRequest()
       when there is no ISA account matching the request
-        ✓ rejects the requests (72ms)
+        ✓ rejects the request (89ms)
       when there is a valid ISA account matching the request
         when the fiscal year is not matching the one in the request
-          ✓ rejects the requests (65ms)
+          ✓ rejects the request (72ms)
         when there is not sufficient balance to transfer out
-          ✓ rejects the requests (61ms)
+          ✓ rejects the request (76ms)
         when the request is valid
-          ✓ accepts the requests (63ms)
+          ✓ accepts the requests (67ms)
     sendMoney()
-      ✓ moves the balance out of the existing ISA and updates the transfer request (59ms)
+      ✓ moves the balance out of the existing ISA and updates the transfer request (58ms)
     distributeMoney()
-      ✓ adds the the balance to a new destination ISA and updates the transfer request (83ms)
+      ✓ adds the the balance to a new destination ISA and updates the transfer request (65ms)
 
 
-  6 passing (6s)
+  6 passing (2s)
 ```
 
 ## License: Apache 2.0
