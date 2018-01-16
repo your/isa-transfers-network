@@ -6,20 +6,27 @@
     "node": ">= 8.9.4"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive && ./node_modules/eslint/bin/eslint.js ."
+    "pretest": "npm run lint",
+    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "cucumber": "./node_modules/cucumber/bin/cucumber.js",
+    "mocha": "./node_modules/mocha/bin/mocha --recursive",
+    "test": "npm run mocha && npm run cucumber"
   },
   "author": "Giuseppe Lobraico",
   "email": "g.lobraico@gmail.com",
   "license": "Apache-2.0",
   "devDependencies": {
-    "composer-admin": "latest",
-    "composer-client": "latest",
-    "composer-common": "latest",
-    "composer-connector-embedded": "latest",
-    "chai": "latest",
-    "eslint": "latest",
-    "istanbul": "latest",
-    "mkdirp": "latest",
-    "mocha": "latest"
+    "chai": "^4.1.2",
+    "composer-admin": "^0.16.3",
+    "composer-cli": "^0.16.3",
+    "composer-client": "^0.16.3",
+    "composer-common": "^0.16.3",
+    "composer-connector-embedded": "^0.16.3",
+    "composer-cucumber-steps": "^0.16.3",
+    "cucumber": "^2.2.0",
+    "eslint": "^4.15.0",
+    "istanbul": "^0.4.5",
+    "mkdirp": "^0.5.1",
+    "mocha": "^4.1.0"
   }
 }
