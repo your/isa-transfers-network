@@ -1,3 +1,5 @@
+'use strict';
+
 /*
  * Copyright (C) 2018 Giuseppe Lobraico
 
@@ -13,3 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+const composerSteps = require('composer-cucumber-steps');
+const cucumber = require('cucumber');
+
+module.exports = function () {
+    composerSteps.call(this);
+};
+
+if (cucumber.defineSupportCode) {
+    cucumber.defineSupportCode((context) => {
+        module.exports.call(context);
+    });
+}
